@@ -1,0 +1,2 @@
+https://www.hillviewprep.com/problem-of-the-day/how-to-find-primes-by-their-square-roots-and-python
+https://www.khanacademy.org/math/algebra/rational-and-irrational-numbers/proofs-concerning-irrational-numbers/v/proof-that-square-root-of-prime-number-is-irrational
