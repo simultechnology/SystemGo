@@ -7,7 +7,7 @@ import (
 
 func sub() {
 	fmt.Println("sub() is running")
-	time.Sleep(2 * time.Millisecond)
+	time.Sleep(2 * time.Second)
 	fmt.Printf("\nsub() is finished\n")
 }
 
@@ -18,8 +18,9 @@ func main() {
 	go func() {
 		for {
 			fmt.Printf("1")
+			time.Sleep(100 * time.Millisecond)
 		}
 	}()
 
-	time.Sleep(5 * time.Millisecond)
+	time.Sleep(10 * time.Second)
 }

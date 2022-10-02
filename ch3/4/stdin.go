@@ -16,4 +16,5 @@ func main() {
 		}
 		fmt.Printf("size=%d input='%s'\n", size, string(buffer))
 	}
+
 }

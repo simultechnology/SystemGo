@@ -26,11 +26,18 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	gzWriter.Header.Name = "test.txt"
 	defer gzWriter.Close()
 
-	writer := io.MultiWriter(gzWriter, os.Stdout)
-	writer.Write(sourceBytes)
+	file, err := os.Create("./test.txt.log")
+	writer := io.MultiWriter(gzWriter, os.Stdout, file)
+	_, err = writer.Write(sourceBytes)
+	if err != nil {
+		return
+	}
 }
 
 func main() {
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":55580", nil)
+	err := http.ListenAndServe(":55580", nil)
+	if err != nil {
+		return
+	}
 }

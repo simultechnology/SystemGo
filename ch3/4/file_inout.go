@@ -10,6 +10,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
-	io.Copy(os.Stdout, file)
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			return
+		}
+	}(file)
+	_, err = io.Copy(os.Stdout, file)
+	if err != nil {
+		return
+	}
 }

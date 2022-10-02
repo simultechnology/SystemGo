@@ -9,18 +9,26 @@ import (
 )
 
 func main() {
-	fmt.Fprintf(os.Stdout, "Write with os.Stdout at %v\n", time.Now())
-
+	_, err2 := fmt.Fprintf(os.Stdout, "Write with os.Stdout at %v\n", time.Now())
+	if err2 != nil {
+		return
+	}
 	encoder := json.NewEncoder(os.Stdout)
 	encoder.SetIndent("", "    ")
-	encoder.Encode(map[string]string{
+	err := encoder.Encode(map[string]string{
 		"example": "encoding/json",
 		"hello":   "world",
 	})
+	if err != nil {
+		return
+	}
 	request, err := http.NewRequest("GET", "https://simultechnology.com", nil)
 	if err != nil {
 		panic(err)
 	}
 	request.Header.Set("X-TEST", "added to header")
-	request.Write(os.Stdout)
+	err = request.Write(os.Stdout)
+	if err != nil {
+		return
+	}
 }

@@ -8,14 +8,20 @@ import (
 
 func main() {
 
-	message := "test is test!!\n"
+	message := "Test is test!!\n"
 	messageBytes := []byte(message)
-	file, error := os.Create("test.txt")
-	if error != nil {
-		panic(error)
+	file, err := os.Create("test.txt")
+	if err != nil {
+		panic(err)
 	}
-	os.Stdout.Write(messageBytes)
-	file.Write(messageBytes)
+	_, err = os.Stdout.Write(messageBytes)
+	if err != nil {
+		return
+	}
+	_, err = file.Write(messageBytes)
+	if err != nil {
+		return
+	}
 
 	var buffer bytes.Buffer
 	buffer.Write(messageBytes)
