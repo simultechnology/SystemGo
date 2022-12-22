@@ -15,6 +15,7 @@ func main() {
 		}
 		done <- true
 	}()
+	fmt.Println("start a channel")
 	// time.Sleep(1 * time.Nanosecond)
 	res, ok := <-done
 	fmt.Println(res, ok)
