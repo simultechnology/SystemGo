@@ -2,32 +2,29 @@ package main
 
 import (
 	"log"
-	"sync"
-	"time"
 )
 
-var counter = 0
-var wg sync.WaitGroup
-
 func main() {
-	wg.Add(2)
+	counterChan := make(chan int)
 	go func() {
 		for i := 0; i <= 32; i++ {
-			counter++
-			time.Sleep(100 * time.Millisecond)
-			log.Println("Thread 1: ", counter)
+			counterChan <- 1
+			// time.Sleep(100 * time.Millisecond)
 		}
-		wg.Done()
 	}()
 
 	go func() {
 		for i := 0; i <= 32; i++ {
-			counter++
-			time.Sleep(100 * time.Millisecond)
-			log.Println("Thread 2: ", counter)
+			counterChan <- 1
+			// time.Sleep(100 * time.Millisecond)
 		}
-		wg.Done()
 	}()
 
-	wg.Wait()
+	{
+		var counter = 0
+		for counter < 64 {
+			counter += <-counterChan
+			log.Println(counter)
+		}
+	}
 }
